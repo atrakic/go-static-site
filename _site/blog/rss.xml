@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+
+<channel>
+<title>Blog</title>
+<link>http://localhost:8000/</link>
+<description>Grow with Technology</description>
+
+<item>
+<title>New site</title>
+<link>http://localhost:8000/blog/new-site/</link>
+<description>
+<![CDATA[
+<p>
+Phasellus a interdum odio, vitae finibus leo. Pellentesque porta quis massa non suscipit. Mauris finibus vel nibh quis scelerisque. Suspendisse eget molestie lacus, eu mattis&nbsp;<a href="http://localhost:8000/blog/new-site/">...</a>
+</p>
+<p><a href="http://localhost:8000/blog/new-site/">Read More</a></p>
+]]>
+</description>
+<pubDate>Mon, 09 Jan 2023 00:00:00 +0000</pubDate>
+</item>
+
+
+</channel>
+</rss>

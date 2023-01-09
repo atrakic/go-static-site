@@ -1,0 +1,9 @@
+version: '3.4'
+services:
+  app:
+    image: go-static-site
+    container_name: go-static-site
+    build:
+      context: .
+    ports:
+      - 8080:8080
