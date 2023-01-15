@@ -14,19 +14,19 @@ on:
 
 permissions:
   contents: read
-  packages: write
+  packages: write # needed for ghcr access
 
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
-  IMAGE_TAG: ${{ github.sha }}
+  IMAGE_TAG: ${{ github.sha }}-${{ github.run_number }}
 
 jobs:
   # https://docs.github.com/en/actions/publishing-packages/publishing-docker-images#publishing-images-to-github-packages
   # https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry
-  build:
+  release:
     runs-on: ubuntu-latest
-    if: github.event_name != 'pull_request'
+    #if: github.event_name != 'pull_request'
     defaults:
       run:
         shell: bash
@@ -79,7 +79,6 @@ jobs:
 
       - name: Summary
         run: |
-          echo "### ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.tagname.outputs.timestamp }} :rocket:" >> $GITHUB_STEP_SUMMARY
           echo "### ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }} :rocket:" >> $GITHUB_STEP_SUMMARY
 
 # Example release pipeline trigger:
