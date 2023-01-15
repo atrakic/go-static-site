@@ -79,6 +79,7 @@ jobs:
 
       - name: Summary
         run: |
+          echo "### ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.tagname.outputs.timestamp }} :rocket:" >> $GITHUB_STEP_SUMMARY
           echo "### ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }} :rocket:" >> $GITHUB_STEP_SUMMARY
 
 # Example release pipeline trigger:
