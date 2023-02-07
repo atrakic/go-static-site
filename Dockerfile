@@ -11,6 +11,10 @@ RUN CGO_ENABLED=0 go build -ldflags="-w -s" -v -o app .
 # https://github.com/GoogleContainerTools/distroless
 # https://iximiuz.com/en/posts/containers-distroless-images/
 FROM gcr.io/distroless/static
+LABEL org.opencontainers.image.source=https://github.com/atrakic/go-static-site
+LABEL org.opencontainers.image.description="Static site with golang"
+LABEL org.opencontainers.image.licenses=MIT
+
 COPY _site /_site
 COPY --from=builder /app/app ./
 EXPOSE 8080
