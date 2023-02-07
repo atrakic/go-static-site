@@ -56,27 +56,24 @@ jobs:
           # https://docs.github.com/en/actions/security-guides/automatic-token-authentication
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      # https://fluxcd.io/flux/guides/image-update/
       - name: Set current date as env variable
         id: tagname
         run: echo "timestamp=$(date +'%s')" >> $GITHUB_OUTPUT
 
       - name: Build and push container image to registry
-        uses: docker/build-push-action@v3
+        uses: docker/build-push-action@v4
         with:
           context: ./
           platforms: linux/amd64,linux/arm64
           push: ${{ github.event_name != 'pull_request' }}
           labels: ${{ steps.meta.outputs.labels }}
+          outputs: type=image,name=target,annotation-index.org.opencontainers.image.description=My multi-arch image
           tags: |
             ${{ steps.meta.outputs.tags }}
             ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
             ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.tagname.outputs.timestamp }}
-
-      - name: List image
-        run: |
-          docker pull ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
-          docker image ls ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
-
+      
       - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@master
         with:
@@ -87,6 +84,23 @@ jobs:
           vuln-type: 'os,library'
           severity: 'CRITICAL,HIGH'
 
+      - name: List image
+        run: |
+          docker pull ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
+          docker image ls ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
+
+      - name: Push Helm chart to OCI compatible registry (ghcr.io)
+        if: false
+        id: push-helm-github
+        uses: bsord/helm-push@v4
+        with:
+          useOCIRegistry: true
+          registry-url: oci://ghcr.io/${{ github.repository }}
+          username: atrakic
+          access-token: ${{ secrets.GITHUB_TOKEN }}
+          force: true
+          chart-folder: ./charts/go-static-site
+      
       - name: Summary
         run: |
           echo "### ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }} :rocket:" >> $GITHUB_STEP_SUMMARY
