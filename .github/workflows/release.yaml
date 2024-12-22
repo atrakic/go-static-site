@@ -1,10 +1,11 @@
 name: release
 
 on:
-  workflow_dispatch:
-  push:
-    branches:
-      - main
+  workflow_run:
+    workflows: ["ci"]
+    branches: [main,master]
+    types:
+      - completed
     paths:
       - '**'
       - '!README.md'
@@ -26,7 +27,6 @@ jobs:
   # https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry
   release:
     runs-on: ubuntu-latest
-    #if: github.event_name != 'pull_request'
     defaults:
       run:
         shell: bash
@@ -40,7 +40,7 @@ jobs:
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           labels: |
-            maintainer=Admir Trakic <xomodo@gmail.com>
+            maintainer=Admir Trakic <atrakic@users.noreply.github.com>
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
