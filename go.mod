@@ -1,3 +1,3 @@
-module example.com
+module atrakic/go-static-site
 
-go 1.19
+go 1.23.3
