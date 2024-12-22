@@ -2,14 +2,10 @@ name: release
 
 on:
   workflow_run:
-    workflows: ["ci"]
+    workflows: ["golangci"]
     branches: [main,master]
     types:
       - completed
-    paths:
-      - '**'
-      - '!README.md'
-      - '!docs/**'
     tags:
       - 'v*.*.*'
 
