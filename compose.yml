@@ -1,8 +1,0 @@
-services:
-  app:
-    image: go-static-site
-    container_name: go-static-site
-    build:
-      context: .
-    ports:
-      - 8080:80
