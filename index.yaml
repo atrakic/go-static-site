@@ -1,0 +1,14 @@
+apiVersion: v1
+entries:
+  go-static-site:
+  - apiVersion: v2
+    appVersion: 0.0.2
+    created: "2024-12-24T12:05:44.534318771Z"
+    description: A Helm chart for Kubernetes
+    digest: 5c5e90b02ff39bcc4d94b11818bf83daaa009bf9a141636abdaa0c6fb3339d7d
+    name: go-static-site
+    type: application
+    urls:
+    - https://github.com/atrakic/go-static-site/releases/download/go-static-site-0.0.5/go-static-site-0.0.5.tgz
+    version: 0.0.5
+generated: "2024-12-24T12:05:44.534324942Z"
