@@ -79,10 +79,14 @@ func TestServerAddress(t *testing.T) {
 	originalPort := os.Getenv("PORT")
 	t.Cleanup(func() {
 		if originalPort == "" {
-			_ = os.Unsetenv("PORT")
+			if err := os.Unsetenv("PORT"); err != nil {
+				t.Fatalf("failed to unset PORT during cleanup: %v", err)
+			}
 			return
 		}
-		_ = os.Setenv("PORT", originalPort)
+		if err := os.Setenv("PORT", originalPort); err != nil {
+			t.Fatalf("failed to restore PORT during cleanup: %v", err)
+		}
 	})
 
 	tests := []struct {
@@ -98,9 +102,13 @@ func TestServerAddress(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			if tt.port == "" {
-				_ = os.Unsetenv("PORT")
+				if err := os.Unsetenv("PORT"); err != nil {
+					t.Fatalf("failed to unset PORT: %v", err)
+				}
 			} else {
-				_ = os.Setenv("PORT", tt.port)
+				if err := os.Setenv("PORT", tt.port); err != nil {
+					t.Fatalf("failed to set PORT: %v", err)
+				}
 			}
 
 			if got := serverAddress(); got != tt.want {
