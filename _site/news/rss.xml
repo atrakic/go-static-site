@@ -3,18 +3,18 @@
 
 <channel>
 <title>News</title>
-<link>http://localhost:8000/</link>
-<description>Grow with Technology</description>
+<link>https://atrakic.github.io/static-site/</link>
+<description>Just another autogenerate static site</description>
 
 <item>
 <title>Banner</title>
-<link>http://localhost:8000/news/banner/</link>
+<link>https://atrakic.github.io/static-site/news/banner/</link>
 <description>
 <![CDATA[
 <p>
-MMM. .MMM MMMMMMMMMMMMMMMMMMM MMMMMMMMMMMMMMMMMMM _______________________________________ MMMMMMMMMMMMMMMMMMMMM | | MMMMMMMMMMMMMMMMMMMMMMM | Non-blocking is better than blocking. | MMMMMMMMMMMMMMMMMMMMMMMM |_ ___________________________________| MMMM::- -:::::::- -::MMMM |/ MM~:~ 00~:::::~&nbsp;<a href="http://localhost:8000/news/banner/">...</a>
+MMM. .MMM MMMMMMMMMMMMMMMMMMM MMMMMMMMMMMMMMMMMMM _______________________________________ MMMMMMMMMMMMMMMMMMMMM | | MMMMMMMMMMMMMMMMMMMMMMM | Non-blocking is better than blocking. | MMMMMMMMMMMMMMMMMMMMMMMM |_ ___________________________________| MMMM::- -:::::::- -::MMMM |/ MM~:~ 00~:::::~&nbsp;<a href="https://atrakic.github.io/static-site/news/banner/">...</a>
 </p>
-<p><a href="http://localhost:8000/news/banner/">Read More</a></p>
+<p><a href="https://atrakic.github.io/static-site/news/banner/">Read more</a></p>
 ]]>
 </description>
 <pubDate>Tue, 10 Jan 2023 00:00:00 +0000</pubDate>
