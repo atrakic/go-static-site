@@ -7,17 +7,17 @@ Please refer to Helm's [documentation](https://helm.sh/docs/) to get started.
 Once Helm is set up properly, add the repo as follows:
 
 ```bash
-helm repo add go-static-site https://atrakic.github.io/go-static-site
+helm repo add static-site https://atrakic.github.io/static-site
 ```
 
 go-static-site can now be installed with the following command:
 
 ```bash
-helm install go-static-site --namespace go-static-site go-static-site/go-static-site --create-namespace
+helm install static-site --namespace static-site static-site/static-site --create-namespace
 ```
 
 If you have custom options or values you want to override:
 
 ```bash
-helm install go-static-site --namespace go-static-site -f my-values.yaml go-static-site/go-static-site
+helm install static-site --namespace static-site -f my-values.yaml static-site/go-static-site
 ```
