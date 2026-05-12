@@ -22,6 +22,12 @@ jobs:
         uses: actions/setup-go@v6
         with:
           go-version-file: go.mod
+
+      - name: Lint
+        uses: golangci/golangci-lint-action@v9
+        with:
+          version: v2.12
+          
       - name: Build
         run: |
           go build -v ./...
@@ -29,8 +35,3 @@ jobs:
       - name: Test with the Go CLI
         run: go test -v ./...
 
-      - name: Lint
-        uses: golangci/golangci-lint-action@v6
-        with:
-          version: latest
-          args: --timeout 5m
