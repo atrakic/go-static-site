@@ -12,30 +12,25 @@ jobs:
     name: Build
     runs-on: ubuntu-latest
     if: "!contains(github.event.head_commit.message, 'ci skip')"
-    strategy:
-      matrix:
-        go-version: ["1.23"]
     defaults:
       run:
         shell: bash
     steps:
-      - name: Set up Go ${{ matrix.go-version }}
+      - uses: actions/checkout@v4
+
+      - name: Set up Go from go.mod
         uses: actions/setup-go@v6
         with:
-          go-version: ${{ matrix.go-version }}
-          cache: false
-
-      - uses: actions/checkout@v3
+          go-version-file: go.mod
       - name: Build
         run: |
-          go get -d -v
-          go build -v .
+          go build -v ./...
           
       - name: Test with the Go CLI
-        run: go test -v .
+        run: go test -v ./...
 
       - name: Lint
-        uses: golangci/golangci-lint-action@v3
+        uses: golangci/golangci-lint-action@v6
         with:
           version: latest
           args: --timeout 5m

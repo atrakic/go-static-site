@@ -1,4 +1,6 @@
-FROM golang:1.23 AS builder
+# renovate: datasource=docker depName=golang
+ARG GO_VERSION=1.26
+FROM golang:${GO_VERSION} AS builder
 WORKDIR /app
 ADD . .
 
