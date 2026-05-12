@@ -1,3 +1,3 @@
-module atrakic/go-static-site
+module atrakic/static-site
 
 go 1.26

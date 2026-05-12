@@ -1,8 +1,9 @@
 services:
   app:
-    image: go-static-site
-    container_name: go-static-site
     build:
       context: .
+    environment:
+      PORT: "8080"
+      HTTP_DIR: "_site"
     ports:
-      - 8080:80
+      - 8080:8080

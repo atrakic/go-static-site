@@ -1,17 +1,12 @@
 # renovate: datasource=docker depName=golang
 ARG GO_VERSION=1.26
 FROM golang:${GO_VERSION} AS builder
-WORKDIR /app
+WORKDIR /build
 ADD . .
-
-# Statically compile our app for use in a distroless container
 RUN CGO_ENABLED=0 go build -ldflags="-w -s -X main.SHA=$(git rev-parse HEAD)" -v -o app .
-#RUN sh -c 'CGO_ENABLED=0 go build -ldflags "-w -s -X main.SHA=$(git rev-parse HEAD)" -o app .'
 
-# A distroless container image with some basics like SSL certificates
-# https://github.com/GoogleContainerTools/distroless
-FROM gcr.io/distroless/static
+FROM scratch as final
 COPY _site /_site
-COPY --from=builder /app/app ./
-EXPOSE 80
-ENTRYPOINT ["/app"]
+COPY --from=builder /build/app /static-site
+EXPOSE 8080
+ENTRYPOINT ["/static-site"]

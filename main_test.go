@@ -117,3 +117,45 @@ func TestServerAddress(t *testing.T) {
 		})
 	}
 }
+
+func TestStaticDir(t *testing.T) {
+	originalDir := os.Getenv("HTTP_DIR")
+	t.Cleanup(func() {
+		if originalDir == "" {
+			if err := os.Unsetenv("HTTP_DIR"); err != nil {
+				t.Fatalf("failed to unset HTTP_DIR during cleanup: %v", err)
+			}
+			return
+		}
+		if err := os.Setenv("HTTP_DIR", originalDir); err != nil {
+			t.Fatalf("failed to restore HTTP_DIR during cleanup: %v", err)
+		}
+	})
+
+	tests := []struct {
+		name    string
+		httpDir string
+		want    string
+	}{
+		{name: "default", want: "_site"},
+		{name: "configured", httpDir: "public", want: "public"},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if tt.httpDir == "" {
+				if err := os.Unsetenv("HTTP_DIR"); err != nil {
+					t.Fatalf("failed to unset HTTP_DIR: %v", err)
+				}
+			} else {
+				if err := os.Setenv("HTTP_DIR", tt.httpDir); err != nil {
+					t.Fatalf("failed to set HTTP_DIR: %v", err)
+				}
+			}
+
+			if got := staticDir(); got != tt.want {
+				t.Fatalf("staticDir() = %q, want %q", got, tt.want)
+			}
+		})
+	}
+}
