@@ -11,7 +11,7 @@ jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
-    if: "!contains(github.event.head_commit.message, 'ci skip')"
+    if: github.event_name != 'push' || !contains(github.event.head_commit.message, 'ci skip')
     defaults:
       run:
         shell: bash
@@ -31,6 +31,9 @@ jobs:
 
       - name: Lint
         uses: golangci/golangci-lint-action@v6
+        env:
+          GOTOOLCHAIN: local
         with:
           version: latest
+          install-mode: goinstall
           args: --timeout 5m
